@@ -30,7 +30,7 @@ const Navbar = () => {
                     <div className='primary-clr p-2 rounded-xl shadow-lg text-white'>
                         <GraduationCap className='w-5 h-5 md:w-6 md:h-6' />
                     </div>
-                    <span className='primary-clr bg-clip-text text-transparent md:text-xl'>e-TuitionBD</span>
+                    <span className='hidden md:inline primary-clr bg-clip-text text-transparent text-xl'>e-TuitionBD</span>
                 </Link>
             </div>
             <div className="navbar-center hidden lg:flex">
@@ -41,7 +41,7 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <Link className="btn text-white primary-clr btn-xs md:btn-md rounded-xl shadow-lg hover:scale-105 transition-all duration-300">Login / Sign up</Link>
+                <Link className="btn text-white primary-clr btn-sm md:btn-md rounded-xl shadow-lg hover:scale-105 transition-all duration-300">Login / Sign up</Link>
             </div>
         </div>
     );
