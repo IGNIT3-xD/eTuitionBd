@@ -5,8 +5,10 @@ import { Outlet } from 'react-router';
 const Root = () => {
     return (
         <div>
-            <Navbar />
-            <div className='max-w-7xl mx-auto'>
+            <div className=''>
+                <Navbar />
+            </div>
+            <div className=''>
                 <Outlet />
             </div>
         </div>

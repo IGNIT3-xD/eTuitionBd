@@ -4,10 +4,14 @@
 @plugin "daisyui/theme" {
     name: "light";
     default: true;
-    --color-primary: blue;
+    --color-primary: #155dfc;
     --color-secondary: teal;
 }
 
 .primary-clr {
     @apply bg-linear-to-r from-blue-600 to-indigo-600;
+}
+
+.on-hover {
+    @apply hover:scale-105 transition-all duration-300
 }
