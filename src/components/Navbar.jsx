@@ -41,7 +41,7 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <Link className="btn text-white primary-clr btn-sm md:btn-md rounded-xl shadow-lg hover:scale-105 transition-all duration-300">Login / Sign up</Link>
+                <Link className="btn text-white primary-clr btn-sm md:btn-md rounded-lg shadow-lg hover:scale-105 transition-all duration-300">Login / Sign up</Link>
             </div>
         </div>
     );

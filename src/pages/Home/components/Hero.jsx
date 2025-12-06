@@ -20,7 +20,7 @@ const Hero = () => {
                         <TrendingUp className='size-4' />
                         <span>Trusted by 10,000+ students worldwide</span>
                     </div>
-                    <h3 className='text-xl md:text-2xl lg:text-3xl my-6 md:my-8'>Find Your Perfect Tutor Today</h3>
+                    <h3 className='text-xl md:text-3xl my-4 font-medium'>Find Your Perfect Tutor Today</h3>
                     <h2 className='text-xl leading-relaxed text-blue-100'>Connect with qualified tutors and unlock your academic potential. Join thousands of students achieving their learning goals with personalized education.</h2>
                 </div>
                 <div className='my-6 md:my-8 flex items-center flex-wrap gap-4'>

@@ -25,7 +25,7 @@ const FeaturedTutors = () => {
                 <Award className="size-4" />
                 <span>Expert Educators</span>
             </div>
-            <h2 className="text-gray-900 text-xl md:text-3xl my-3">Featured Tutors</h2>
+            <h2 className="text-gray-900 text-xl md:text-3xl my-3 font-medium">Featured Tutors</h2>
             <div className='md:flex items-center justify-between'>
                 <p className="text-gray-600 text-xl md:text-2xl">Learn from the best educators</p>
                 <Link className='hidden md:flex items-center gap-1 text-primary underline hover:text-blue-800'>View All <ArrowRight className='size-4 animate-pulse' /></Link>
@@ -65,7 +65,7 @@ const FeaturedTutors = () => {
                             <div className="flex items-center justify-between pt-5 border-t border-gray-200">
                                 <div>
                                     <div className="text-xs text-gray-500">Rate</div>
-                                    <div className="text-blue-600">{tutor.rate}</div>
+                                    <div className="text-blue-600">৳ {tutor.rate}</div>
                                 </div>
                                 <div className="text-right">
                                     <div className="text-xs text-gray-500">Students</div>
