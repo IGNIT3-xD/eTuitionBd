@@ -1,2 +1,13 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+@plugin "daisyui/theme" {
+    name: "light";
+    default: true;
+    --color-primary: blue;
+    --color-secondary: teal;
+}
+
+.primary-clr {
+    @apply bg-linear-to-r from-blue-600 to-indigo-600;
+}
