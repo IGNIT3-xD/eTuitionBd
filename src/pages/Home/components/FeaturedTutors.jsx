@@ -28,12 +28,12 @@ const FeaturedTutors = () => {
             <h2 className="text-gray-900 text-2xl md:text-3xl my-3 font-medium">Featured Tutors</h2>
             <div className='md:flex items-center justify-between'>
                 <p className="text-gray-600 text-xl md:text-2xl">Learn from the best educators</p>
-                <Link className='hidden md:flex items-center gap-1 text-primary underline hover:text-blue-800'>View All <ArrowRight className='size-4 animate-pulse' /></Link>
+                <Link to={'/tutors'} className='hidden md:flex items-center gap-1 text-primary underline hover:text-blue-800'>View All <ArrowRight className='size-4 animate-pulse' /></Link>
             </div>
             <div className='grid md:grid-cols-3 lg:grid-cols-4 gap-6 mt-10'>
                 {
                     data.map(tutor =>
-                        <Link key={tutor._id} className="group bg-linear-to-br from-white to-gray-50 rounded-2xl p-6 hover:shadow-2xl duration-300 transition-all hover:-translate-y-2 border border-gray-100 relative overflow-hidden">
+                        <Link to={`/tutors/${tutor._id}`} key={tutor._id} className="group bg-linear-to-br from-white to-gray-50 rounded-2xl p-6 hover:shadow-2xl duration-300 transition-all hover:-translate-y-2 border border-gray-100 relative overflow-hidden">
                             <div className="text-center mb-4">
                                 <div className="relative inline-block mb-4">
                                     <img

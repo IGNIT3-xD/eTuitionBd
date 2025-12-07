@@ -6,6 +6,7 @@ import About from './../pages/About/About';
 import Contact from './../pages/Contact/Contact';
 import Tuitions from './../pages/Tuitions/Tuitions';
 import TuitionDetails from "../pages/Tuitions/TuitionDetails";
+import TutorDetails from './../pages/Tutors/TutorDetails';
 
 export const router = createBrowserRouter([
     {
@@ -27,6 +28,10 @@ export const router = createBrowserRouter([
             {
                 path: '/tutors',
                 Component: Tutors
+            },
+            {
+                path: '/tutors/:id',
+                Component: TutorDetails
             },
             {
                 path: '/about',

@@ -22,7 +22,7 @@ const TuitionDetails = () => {
 
     return (
         <div className='bg-gray-50'>
-            <div className='max-w-5xl mx-auto py-20 px-4 md:px-10'>
+            <div className='max-w-6xl mx-auto py-20 px-4 md:px-10'>
                 <Link to="/tuitions" className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 mb-6">
                     <ArrowLeft className="size-4" />
                     Back to Tuitions
