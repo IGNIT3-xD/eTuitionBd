@@ -4,11 +4,11 @@ import { GraduationCap } from 'lucide-react';
 
 const Navbar = () => {
     const navlinks = <>
-        <li><NavLink>Home</NavLink></li>
-        <li><NavLink>Tuitions</NavLink></li>
-        <li><NavLink>Tutor</NavLink></li>
-        <li><NavLink>About</NavLink></li>
-        <li><NavLink>Contact</NavLink></li>
+        <li><NavLink to={'/'}>Home</NavLink></li>
+        <li><NavLink to={'/tuitions'}>Tuitions</NavLink></li>
+        <li><NavLink to={'/tutors'}>Tutor</NavLink></li>
+        <li><NavLink to={'/about'}>About</NavLink></li>
+        <li><NavLink to={'/contact'}>Contact</NavLink></li>
     </>
 
     return (
