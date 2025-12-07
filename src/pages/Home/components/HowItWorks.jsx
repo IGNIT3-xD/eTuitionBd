@@ -31,12 +31,12 @@ const HowItWorks = () => {
                         <span className="size-2 bg-green-500 rounded-full animate-pulse"></span>
                         <span className="text-gray-700">Simple 3-Step Process</span>
                     </div>
-                    <h2 className="text-gray-900 mb-4 text-xl md:text-3xl my-4 font-medium">How It Works</h2>
+                    <h2 className="text-gray-900 mb-4 text-2xl md:text-3xl my-4 font-medium">How It Works</h2>
                     <p className="text-gray-600 max-w-2xl mx-auto  text-xl md:text-2xl">
                         Getting started with TutorConnect is simple. Follow these three easy steps to begin your learning journey.
                     </p>
                 </div>
-                <div className='grid md:grid-cols-3 gap-6 mt-10'>
+                <div className='grid md:grid-cols-3 gap-6 mt-14'>
                     {
                         steps.map((step, index) =>
                             <div key={index} className="relative">
