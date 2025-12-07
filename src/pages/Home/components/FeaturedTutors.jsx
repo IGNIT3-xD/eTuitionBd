@@ -17,7 +17,7 @@ const FeaturedTutors = () => {
 
     if (isLoading) return <Loading />
 
-    console.log(data);
+    // console.log(data);
 
     return (
         <div className='layout py-20'>

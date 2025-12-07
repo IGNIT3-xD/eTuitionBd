@@ -17,7 +17,7 @@ const Tuitions = () => {
 
     if (isLoading) return <Loading />
 
-    console.log(data);
+    // console.log(data);
 
     return (
         <div className='bg-gray-50'>
@@ -30,7 +30,8 @@ const Tuitions = () => {
                     {
                         data.map(tuition =>
                             <Link
-                                key={tuition.id}
+                                key={tuition._id}
+                                to={`/tuitions/${tuition._id}`}
                                 className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
                             >
                                 <div className="flex items-start justify-between mb-3">
@@ -41,7 +42,7 @@ const Tuitions = () => {
                                 </div>
 
                                 <h3 className="text-gray-900 mb-2 font-medium">{tuition.title}</h3>
-                                <p className="text-sm text-gray-600 mb-4">{tuition.description.split(' ').slice(0, 18).join(' ')}</p>
+                                <p className="text-sm text-gray-600 mb-4">{tuition.description.split(' ').slice(0, 18).join(' ')}...</p>
 
                                 <div className="space-y-2 mb-4">
                                     <div className="flex items-center gap-2 text-sm text-gray-600">
@@ -60,7 +61,7 @@ const Tuitions = () => {
 
                                 <div className="flex items-center justify-between pt-4 border-t border-gray-100">
                                     <span className="text-sm text-gray-500">{tuition.level}</span>
-                                    <Link className="text-sm text-blue-600">View Details →</Link>
+                                    <span className="text-sm text-blue-600">View Details →</span>
                                 </div>
                             </Link>
                         )

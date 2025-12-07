@@ -29,12 +29,12 @@ const Tuitions = () => {
                 <h2 className="text-gray-900 text-2xl md:text-3xl my-3 font-medium">Latest Tuitions</h2>
                 <div className='md:flex items-center justify-between'>
                     <p className="text-gray-600 text-xl md:text-2xl">Discover the newest learning opportunities</p>
-                    <Link className='hidden md:flex items-center gap-1 text-primary underline hover:text-blue-800'>View All <ArrowRight className='size-4 animate-pulse' /></Link>
+                    <Link to={'/tuitions'} className='hidden md:flex items-center gap-1 text-primary underline hover:text-blue-800'>View All <ArrowRight className='size-4 animate-pulse' /></Link>
                 </div>
                 <div className='grid md:grid-cols-3 lg:grid-cols-4 gap-6 mt-10'>
                     {
                         data.map(tuition =>
-                            <Link key={tuition._id} className="bg-white border border-gray-100 rounded-2xl p-6 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 relative overflow-hidden">
+                            <Link to={`/tuitions/${tuition._id}`} key={tuition._id} className="bg-white border border-gray-100 rounded-2xl p-6 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 relative overflow-hidden">
                                 {tuition.urgent && (
                                     <div className="absolute top-0 right-0 bg-linear-to-r from-orange-500 to-red-500 text-white px-3 py-1 rounded-bl-xl text-xs flex items-center gap-1">
                                         <Zap className="size-3" />
@@ -69,7 +69,7 @@ const Tuitions = () => {
 
                                 <div className="pt-4 border-t border-gray-100">
                                     <span className="text-sm text-blue-600 group-hover:text-blue-700 flex items-center gap-2">
-                                        Apply Now
+                                        View Details
                                         <ArrowRight className="size-4 group-hover:translate-x-1 transition-transform" />
                                     </span>
                                 </div>
@@ -77,7 +77,7 @@ const Tuitions = () => {
                         )
                     }
                 </div>
-                <Link className='md:hidden my-4 flex items-center justify-center gap-1 text-primary hover:text-blue-800'>View All <ArrowRight className='size-4 animate-pulse' /></Link>
+                <Link to={'/tuitions'} className='md:hidden my-4 flex items-center justify-center gap-1 text-primary hover:text-blue-800'>View All <ArrowRight className='size-4 animate-pulse' /></Link>
             </div>
         </div>
     );
