@@ -33,7 +33,7 @@ const Navbar = () => {
                     <span className='hidden md:inline primary-clr bg-clip-text text-transparent text-xl'>e-TuitionBD</span>
                 </Link>
             </div>
-            <div className="navbar-center hidden lg:flex">
+            <div className="navbar-center hidden lg:flex navbar-ac">
                 <ul className="*:hover:text-indigo-600 menu menu-horizontal px-1">
                     {
                         navlinks

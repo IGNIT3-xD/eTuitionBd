@@ -24,8 +24,8 @@ const Hero = () => {
                     <h2 className='text-xl leading-relaxed text-blue-100'>Connect with qualified tutors and unlock your academic potential. Join thousands of students achieving their learning goals with personalized education.</h2>
                 </div>
                 <div className='my-6 md:my-8 flex items-center flex-wrap gap-4'>
-                    <Link className='btn btn-lg font-normal text-primary rounded-lg shadow-lg on-hover'>Browse Tuitions <ArrowRight className='size-5 animate-pulse' /></Link>
-                    <Link className='btn btn-lg font-normal bg-blue-500/20 backdrop-blur-sm border-2 border-white/30 on-hover text-white rounded-lg shadow-lg'>Find Tutors <BookOpen className='size-5 animate-pulse ml-1' /></Link>
+                    <Link to={'/tuitions'} className='btn btn-lg font-normal text-primary rounded-lg shadow-lg on-hover'>Browse Tuitions <ArrowRight className='size-5 animate-pulse' /></Link>
+                    <Link to={'/tutors'} className='btn btn-lg font-normal bg-blue-500/20 backdrop-blur-sm border-2 border-white/30 on-hover text-white rounded-lg shadow-lg'>Find Tutors <BookOpen className='size-5 animate-pulse ml-1' /></Link>
                 </div>
                 <div className='grid md:grid-cols-3 gap-6 max-w-3xl my-6 md:my-8'>
                     <div className="flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/10 hover:bg-white/15 transition-all hover:scale-105 duration-300">

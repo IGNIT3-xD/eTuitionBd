@@ -19,3 +19,7 @@
 .layout {
     @apply max-w-7xl mx-auto px-4 md:px-10 xl:px-3
 }
+
+.navbar-ac a.active{
+    @apply text-primary underline underline-offset-6
+}
