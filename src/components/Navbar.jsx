@@ -1,14 +1,25 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router';
-import { GraduationCap } from 'lucide-react';
+import { BookOpen, Contact, GraduationCap, House, Info, UserRound } from 'lucide-react';
+import Logo from './Logo';
+import useAuth from './../hooks/useAuth';
+import { toast } from 'react-toastify';
 
 const Navbar = () => {
+    const { user, logout } = useAuth()
+
+    const handleLogout = () => {
+        logout()
+            .then(() => toast.success('Logout successfully !!'))
+            .catch(err => toast.error(err.code))
+    }
+
     const navlinks = <>
-        <li><NavLink to={'/'}>Home</NavLink></li>
-        <li><NavLink to={'/tuitions'}>Tuitions</NavLink></li>
-        <li><NavLink to={'/tutors'}>Tutor</NavLink></li>
-        <li><NavLink to={'/about'}>About</NavLink></li>
-        <li><NavLink to={'/contact'}>Contact</NavLink></li>
+        <li><NavLink to={'/'}><House className='size-4 opacity-60' /> Home</NavLink></li>
+        <li><NavLink to={'/tuitions'}><BookOpen className='size-4 opacity-60' />Tuitions</NavLink></li>
+        <li><NavLink to={'/tutors'}><UserRound className='size-4 opacity-60' />Tutor</NavLink></li>
+        <li><NavLink to={'/about'}><Info className='size-4 opacity-60' />About</NavLink></li>
+        <li><NavLink to={'/contact'}><Contact className='size-4 opacity-60' />Contact</NavLink></li>
     </>
 
     return (
@@ -26,12 +37,7 @@ const Navbar = () => {
                         }
                     </ul>
                 </div>
-                <Link to={'/'} className='flex items-center gap-2 hover:scale-110 transition-all duration-300'>
-                    <div className='primary-clr p-2 rounded-xl shadow-lg text-white'>
-                        <GraduationCap className='w-5 h-5 md:w-6 md:h-6' />
-                    </div>
-                    <span className='hidden md:inline primary-clr bg-clip-text text-transparent text-xl'>e-TuitionBD</span>
-                </Link>
+                <Logo />
             </div>
             <div className="navbar-center hidden lg:flex navbar-ac">
                 <ul className="*:hover:text-indigo-600 menu menu-horizontal px-1">
@@ -41,7 +47,26 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <Link className="btn text-white primary-clr btn-sm md:btn-md rounded-lg shadow-lg hover:scale-105 transition-all duration-300">Login / Sign up</Link>
+                {
+                    !user ? <Link to={'/login'} className="btn text-white primary-clr btn-sm md:btn-md rounded-lg shadow-lg hover:scale-105 transition-all duration-300">Login / Sign up</Link> :
+                        <div className="flex gap-2">
+                            <div className="dropdown dropdown-end">
+                                <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                                    <div className="w-10 rounded-full">
+                                        <img
+                                            alt=""
+                                            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                                    </div>
+                                </div>
+                                <ul
+                                    tabIndex="-1"
+                                    className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                                    <li><a>Settings</a></li>
+                                    <li><button onClick={handleLogout}>Logout</button></li>
+                                </ul>
+                            </div>
+                        </div>
+                }
             </div>
         </div>
     );

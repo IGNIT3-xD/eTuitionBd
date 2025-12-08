@@ -7,6 +7,10 @@ import Contact from './../pages/Contact/Contact';
 import Tuitions from './../pages/Tuitions/Tuitions';
 import TuitionDetails from "../pages/Tuitions/TuitionDetails";
 import TutorDetails from './../pages/Tutors/TutorDetails';
+import AuthLayout from './../layouts/AuthLayout';
+import Login from './../pages/Auth/Login';
+import Register from './../pages/Auth/Register';
+import PublicRoute from "./PublicRoute";
 
 export const router = createBrowserRouter([
     {
@@ -43,4 +47,18 @@ export const router = createBrowserRouter([
             },
         ]
     },
+    {
+        path: '/',
+        Component: AuthLayout,
+        children: [
+            {
+                path: '/login',
+                element: <PublicRoute><Login /></PublicRoute>
+            },
+            {
+                path: '/registation',
+                element: <PublicRoute><Register /></PublicRoute>
+            }
+        ]
+    }
 ]);
