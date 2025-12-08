@@ -18,7 +18,7 @@ const TuitionDetails = () => {
 
     if (isLoading) return <Loading />
 
-    console.log(tuition);
+    // console.log(tuition);
 
     return (
         <div className='bg-gray-50'>

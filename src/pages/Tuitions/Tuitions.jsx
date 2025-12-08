@@ -26,7 +26,7 @@ const Tuitions = () => {
                     <h1 className="text-gray-900 mb-2 text-2xl md:text-3xl font-medium">Browse Tuitions</h1>
                     <p className="text-gray-600 text-xl">Find the perfect learning opportunity for you</p>
                 </div>
-                <div className='grid md:grid-cols-3 lg:grid-cols-4 gap-6'>
+                <div className='grid md:grid-cols-2 lg:grid-cols-4 gap-6'>
                     {
                         data.map(tuition =>
                             <Link

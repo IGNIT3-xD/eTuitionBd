@@ -26,7 +26,7 @@ const Tutors = () => {
                     <h1 className="text-gray-900 mb-2 text-2xl md:text-3xl font-medium">Find Your Perfect Tutor</h1>
                     <p className="text-gray-600 text-xl">Browse our community of expert educators</p>
                 </div>
-                <div className='grid md:grid-cols-3 lg:grid-cols-4 gap-6'>
+                <div className='grid md:grid-cols-2 lg:grid-cols-4 gap-6'>
                     {
                         tutors.map(tutor =>
                             <Link to={`/tutors/${tutor._id}`} key={tutor._id} className="group bg-linear-to-br from-white to-gray-50 rounded-2xl p-6 hover:shadow-2xl duration-300 transition-all hover:-translate-y-2 border border-gray-100 relative overflow-hidden">

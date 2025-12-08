@@ -30,7 +30,7 @@ const FeaturedTutors = () => {
                 <p className="text-gray-600 text-xl md:text-2xl">Learn from the best educators</p>
                 <Link to={'/tutors'} className='hidden md:flex items-center gap-1 text-primary underline hover:text-blue-800'>View All <ArrowRight className='size-4 animate-pulse' /></Link>
             </div>
-            <div className='grid md:grid-cols-3 lg:grid-cols-4 gap-6 mt-10'>
+            <div className='grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-10'>
                 {
                     data.map(tutor =>
                         <Link to={`/tutors/${tutor._id}`} key={tutor._id} className="group bg-linear-to-br from-white to-gray-50 rounded-2xl p-6 hover:shadow-2xl duration-300 transition-all hover:-translate-y-2 border border-gray-100 relative overflow-hidden">
