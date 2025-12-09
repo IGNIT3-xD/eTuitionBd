@@ -11,6 +11,8 @@ import AuthLayout from './../layouts/AuthLayout';
 import Login from './../pages/Auth/Login';
 import Register from './../pages/Auth/Register';
 import PublicRoute from "./PublicRoute";
+import PrivateRoute from './PrivateRoute';
+import Settings from "../pages/Settings/Settings";
 
 export const router = createBrowserRouter([
     {
@@ -45,6 +47,10 @@ export const router = createBrowserRouter([
                 path: '/contact',
                 Component: Contact
             },
+            {
+                path: '/settings',
+                element: <PrivateRoute><Settings /></PrivateRoute>
+            }
         ]
     },
     {
