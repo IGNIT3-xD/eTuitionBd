@@ -52,15 +52,17 @@ const Navbar = () => {
                         <div className="flex gap-2">
                             <div className="dropdown dropdown-end">
                                 <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                                    <div className="w-10 rounded-full">
+                                    <div className="w-12 border border-black/20 rounded-full">
                                         <img
-                                            alt=""
-                                            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                                            alt="Profile picture"
+                                            src={user.photoURL ? user.photoURL : 'https://img.icons8.com/3d-fluent/100/user-2.png'} />
                                     </div>
                                 </div>
                                 <ul
                                     tabIndex="-1"
                                     className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                                    <li className='px-2'>{user?.displayName}</li>
+                                    <div className='h-0.5 m-2 bg-blue-400'></div>
                                     <li><a>Settings</a></li>
                                     <li><button onClick={handleLogout}>Logout</button></li>
                                 </ul>
