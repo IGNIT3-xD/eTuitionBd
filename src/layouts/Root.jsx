@@ -13,7 +13,7 @@ const Root = () => {
             </div>
             <Footer />
 
-            <ToastContainer />
+            <ToastContainer position='top-left'/>
         </div>
     );
 };

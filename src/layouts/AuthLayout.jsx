@@ -19,7 +19,9 @@ const AuthLayout = () => {
             </div>
             <Footer />
 
-            <ToastContainer />
+            <ToastContainer
+                position="top-center"
+                autoClose={3000} />
         </div>
     );
 };

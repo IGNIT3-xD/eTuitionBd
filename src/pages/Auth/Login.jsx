@@ -4,11 +4,13 @@ import { Eye, EyeClosed, Lock } from 'lucide-react';
 import { useForm } from "react-hook-form"
 import useAuth from './../../hooks/useAuth';
 import { toast } from 'react-toastify';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 
 const Login = () => {
     const { login, gooleLogin } = useAuth()
     const [showPass, setShowPass] = useState(false)
     const { register, handleSubmit, formState: { errors } } = useForm()
+    const instanceSecure = useAxiosSecure()
 
     const handleShowPass = (e) => {
         e.preventDefault()
@@ -27,9 +29,20 @@ const Login = () => {
 
     const handleGoogleLogin = () => {
         gooleLogin()
-            .then(() =>
-                toast.success("Login successfully")
-            )
+            .then((res) => {
+                const user = {
+                    name: res.user.displayName,
+                    email: res.user.email,
+                    role: 'Student',
+                    createdAt: new Date()
+                }
+                instanceSecure.post('/users', user)
+                    .then(res => {
+                        if (res.data.insertedId)
+                            toast.success("Login successfully")
+                    })
+                    .catch(err => console.log(err))
+            })
             .catch(err => toast.error(err.code))
     }
 

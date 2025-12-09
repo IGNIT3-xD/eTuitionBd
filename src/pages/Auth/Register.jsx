@@ -5,12 +5,14 @@ import { useForm } from "react-hook-form"
 import { toast } from 'react-toastify';
 import useAuth from './../../hooks/useAuth';
 import axios from 'axios';
+import useAxiosSecure from './../../hooks/useAxiosSecure'
 
 const Register = () => {
     const { signup, gooleLogin, updateUser } = useAuth()
     const navigate = useNavigate()
     const [showPass, setShowPass] = useState(false)
     const { register, handleSubmit, formState: { errors } } = useForm()
+    const instanceSecure = useAxiosSecure()
 
     const handleShowPass = (e) => {
         e.preventDefault()
@@ -24,6 +26,13 @@ const Register = () => {
 
         signup(data.email, data.pass)
             .then(() => {
+                const user = {
+                    name: data.name,
+                    email: data.email,
+                    role: data.role,
+                    createdAt: new Date()
+                }
+
                 if (data.image && data.image.length > 0) {
                     const formData = new FormData()
                     formData.append('image', data.image[0])
@@ -35,16 +44,33 @@ const Register = () => {
                                 displayName: data.name,
                                 photoURL: res.data.data.url
                             }
+
+                            instanceSecure.post('/users', user)
+                                .then((res) => {
+                                    if (res.data.insertedId) {
+                                        toast.success("Account created successfully !!")
+                                    }
+                                })
+                                .catch(err => console.log(err))
+
                             updateUser(profile)
                                 .then(() => {
-                                    toast.success("Account created successfully !!")
                                     navigate('/')
                                 })
                                 .catch(err => toast.error(err.code))
                         })
                 }
                 else {
-                    const profile = { displayName: data.name, }
+                    const profile = { displayName: data.name }
+
+                    instanceSecure.post('/users', user)
+                        .then(res => {
+                            if (res.data.insertedId) {
+                                toast.success("Account created successfully !!")
+                            }
+                        })
+                        .catch(err => console.log(err))
+
                     updateUser(profile)
                         .then(() => {
                             toast.success("Account created successfully !!")
@@ -58,9 +84,20 @@ const Register = () => {
 
     const handleGoogleLogin = () => {
         gooleLogin()
-            .then(() =>
-                toast.success("Login successfully")
-            )
+            .then((res) => {
+                const user = {
+                    name: res.user.displayName,
+                    email: res.user.email,
+                    role: 'Student',
+                    createdAt: new Date()
+                }
+                instanceSecure.post('/users', user)
+                    .then(res => {
+                        if (res.data.insertedId)
+                            toast.success("Login successfully")
+                    })
+                    .catch(err => console.log(err))
+            })
             .catch(err => toast.error(err.code))
     }
 
