@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import useAuth from './../../hooks/useAuth';
 import { Camera, Mail, Save, UserIcon } from 'lucide-react';
 import useAxiosSecure from './../../hooks/useAxiosSecure';
@@ -6,11 +6,15 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router';
+import axios from 'axios';
 
 const Settings = () => {
-    const { user, updateUser } = useAuth()
+    const { user, updateUser, setUser } = useAuth()
     const instanceSecure = useAxiosSecure()
     const queryClient = useQueryClient()
+    const [previewImg, setPreviewImg] = useState(null)
+    const [selectedFile, setSelectedFile] = useState(null)
+    const fileInputRef = useRef(null)
 
     const { data: userDetails } = useQuery({
         queryKey: [user?.email],
@@ -21,24 +25,69 @@ const Settings = () => {
     })
 
     // console.log(userDetails);
+    // console.log(previewImg);
+    // console.log(selectedFile);
 
     const { register, handleSubmit, formState: { errors } } = useForm()
 
     const handleSave = (data) => {
         // console.log(data);
-        const updatedUser = { displayName: data.name }
-        updateUser(updatedUser)
-            .then(() => {
-                const newInfo = { name: data.name }
-                instanceSecure.patch(`/users/${userDetails?._id}`, newInfo)
-                    .then(res => {
-                        if (res.data.modifiedCount) {
+        if (selectedFile) {
+            const formData = new FormData()
+            formData.append('image', selectedFile)
+
+            // try {
+            //     const uploadRes = await axios.post(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_KEY}`, formData);
+
+            //     const imageUrl = uploadRes.data.data.url
+            //     const updatedUser = { displayName: data.name, photoURL: imageUrl }
+            //     await updateUser(updatedUser)
+            //     queryClient.invalidateQueries({ queryKey: [user?.email] })
+            //     toast.success("User info. updated successfully !!")
+            //     setUser(prev => ({
+            //         ...prev,
+            //         displayName: data.name,
+            //         photoURL: imageUrl
+            //     }));
+            // }
+            // catch (err) {
+            //     toast.error(err.code)
+            // }
+
+            axios.post(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_KEY}`, formData)
+                .then(res => {
+                    // console.log(res.data);
+                    const updatedUser = { displayName: data.name, photoURL: res.data.data.url }
+                    updateUser(updatedUser)
+                        .then(() => {
                             queryClient.invalidateQueries({ queryKey: [user?.email] })
                             toast.success("User info. updated successfully !!")
-                        }
-                    })
-            })
-            .catch(err => toast.error(err.code))
+
+                            // Update immedietly
+                            setUser(prev => ({
+                                ...prev, displayName: data.name, photoURL: res.data.data.url
+                            }))
+                        })
+                        .catch(err => toast.error(err.code))
+                })
+                .catch(err => console.log(err))
+        }
+
+        else {
+            const updatedUser = { displayName: data.name }
+            updateUser(updatedUser)
+                .then(() => {
+                    const newInfo = { name: data.name }
+                    instanceSecure.patch(`/users/${userDetails?._id}`, newInfo)
+                        .then(res => {
+                            if (res.data.modifiedCount) {
+                                queryClient.invalidateQueries({ queryKey: [user?.email] })
+                                toast.success("User info. updated successfully !!")
+                            }
+                        })
+                })
+                .catch(err => toast.error(err.code))
+        }
     }
 
     return (
@@ -54,13 +103,26 @@ const Settings = () => {
                             <div className="text-center">
                                 <div className="relative inline-block mb-4">
                                     <img
-                                        src={user.photoURL ? user?.photoURL : 'https://img.icons8.com/3d-fluent/100/user-2.png'}
+                                        src={
+                                            previewImg || user.photoURL || 'https://img.icons8.com/3d-fluent/100/user-2.png'
+                                        }
                                         alt={user?.displayName}
-                                        className="size-32 rounded-full mx-auto border-4 border-white shadow-xl ring-4 ring-blue-100"
+                                        className="object-cover size-32 rounded-full mx-auto border-4 border-white shadow-xl ring-4 ring-blue-100"
                                     />
-                                    <button className="absolute bottom-0 right-0 size-10 bg-linear-to-r from-blue-600 to-indigo-600 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all hover:scale-110">
+                                    <button onClick={() => fileInputRef.current.click()} className="absolute bottom-0 right-0 size-10 bg-linear-to-r from-blue-600 to-indigo-600 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all hover:scale-110 duration-300 cursor-pointer">
                                         <Camera className="size-5" />
                                     </button>
+
+                                    <input type='file' ref={fileInputRef} accept='image/*'
+                                        onChange={(e) => {
+                                            const file = e.target.files[0]
+                                            if (file) {
+                                                setPreviewImg(URL.createObjectURL(file))
+                                                setSelectedFile(file)
+                                            }
+                                        }}
+                                        className='hidden' />
+
                                 </div>
                                 <h3 className="text-gray-900 mb-1 font-medium text-lg">{user?.displayName}</h3>
                                 <p className="text-sm text-gray-500 mb-3">{user?.email}</p>
