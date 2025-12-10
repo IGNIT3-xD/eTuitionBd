@@ -20,6 +20,6 @@
     @apply max-w-7xl mx-auto px-4 md:px-8
 }
 
-.navbar-ac a.active{
+.navbar-ac a.active {
     @apply text-primary underline underline-offset-6
 }

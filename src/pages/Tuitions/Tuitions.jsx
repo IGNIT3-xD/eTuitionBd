@@ -38,7 +38,11 @@ const Tuitions = () => {
                                     <span className="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-sm">
                                         {tuition.subject}
                                     </span>
-                                    <span className="text-xs text-gray-500">{tuition.posted}</span>
+                                    <span className="text-xs text-gray-500">{new Date(tuition.posted).toLocaleDateString('en-US', {
+                                        day: 'numeric',
+                                        month: 'short',
+                                        year: 'numeric'
+                                    })}</span>
                                 </div>
 
                                 <h3 className="text-gray-900 mb-2 font-medium">{tuition.title}</h3>

@@ -46,7 +46,11 @@ const Tuitions = () => {
                                     <span className="px-4 py-2 bg-linear-to-r from-blue-50 to-indigo-50 text-blue-700 rounded-xl text-sm border border-blue-100">
                                         {tuition.subject}
                                     </span>
-                                    <span className="text-xs text-gray-500">{tuition.posted}</span>
+                                    <span className="text-xs text-gray-500">{new Date(tuition.posted).toLocaleDateString('en-US', {
+                                        day: 'numeric',
+                                        month: 'short',
+                                        year: 'numeric'
+                                    })}</span>
                                 </div>
 
                                 <h3 className="text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">{tuition.title}</h3>

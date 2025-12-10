@@ -13,6 +13,10 @@ import Register from './../pages/Auth/Register';
 import PublicRoute from "./PublicRoute";
 import PrivateRoute from './PrivateRoute';
 import Settings from "../pages/Settings/Settings";
+import DashboardLayout from "../layouts/DashboardLayout";
+import MyTuitions from "../pages/Dashboard/MyTuitions";
+import Homepage from "../pages/Dashboard/Homepage";
+import PostTuitions from './../pages/Dashboard/PostTuitions';
 
 export const router = createBrowserRouter([
     {
@@ -65,6 +69,24 @@ export const router = createBrowserRouter([
                 path: '/registation',
                 element: <PublicRoute><Register /></PublicRoute>
             }
+        ]
+    },
+    {
+        path: '/dashboard',
+        element: <PrivateRoute><DashboardLayout /></PrivateRoute>,
+        children: [
+            {
+                index: true,
+                element: <Homepage />
+            },
+            {
+                path: '/dashboard/my-tuitions',
+                element: <MyTuitions />
+            },
+            {
+                path: '/dashboard/post-tuitions',
+                element: <PostTuitions />
+            },
         ]
     }
 ]);

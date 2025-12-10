@@ -91,9 +91,9 @@ const Settings = () => {
     }
 
     return (
-        <div className='bg-gray-50 min-h-[100vh-401px]'>
+        <div className='bg-gray-50 min-h-[calc(100vh-401px)]'>
             <div className='max-w-6xl mx-auto px-4 md:px-8 py-20'>
-                <h3 className='text-2xl md:text-3xl my-4 font-medium'>Account Settings</h3>
+                <h3 className='text-2xl md:text-3xl my-3 font-medium'>Account Settings</h3>
                 <h2 className='text-xl leading-relaxed'>Manage your account preferences</h2>
 
                 <div className='grid md:grid-cols-3 gap-6 mt-10'>

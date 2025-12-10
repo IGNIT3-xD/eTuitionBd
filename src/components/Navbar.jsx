@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router';
-import { BookOpen, Contact, GraduationCap, House, Info, LogOut, Settings, UserRound } from 'lucide-react';
+import { BookOpen, Contact, GraduationCap, House, Info, LayoutDashboard, LogOut, Settings, UserRound } from 'lucide-react';
 import Logo from './Logo';
 import useAuth from './../hooks/useAuth';
 import { toast } from 'react-toastify';
@@ -79,6 +79,7 @@ const Navbar = () => {
                                         <span className='font-medium'>{data?.role}</span>
                                     </div>
                                     <div className='h-0.5 m-2 bg-black/10'></div>
+                                    <li><Link to={'/dashboard'} className='text-[16px]'><LayoutDashboard className='opacity-60 size-4' /> Dashboard</Link></li>
                                     <li><Link to={'/settings'} className='text-[16px]'><Settings className='opacity-60 size-4' /> Settings</Link></li>
                                     <li><button onClick={handleLogout} className='text-[16px]'><LogOut className='opacity-60 size-4' /> Logout</button></li>
                                 </ul>

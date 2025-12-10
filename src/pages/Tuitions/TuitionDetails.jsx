@@ -34,7 +34,11 @@ const TuitionDetails = () => {
                             <span className="px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm">
                                 {tuition.subject}
                             </span>
-                            <span className="text-sm text-blue-100">{tuition.posted}</span>
+                            <span className="text-sm text-blue-100">{new Date(tuition.posted).toLocaleDateString('en-US', {
+                                day: 'numeric',
+                                month: 'short',
+                                year: 'numeric'
+                            })}</span>
                         </div>
                         <h1 className="text-white mb-4 text-xl md:text-2xl">{tuition.title}</h1>
                         <div className="flex flex-wrap gap-4 text-lg">
@@ -94,7 +98,7 @@ const TuitionDetails = () => {
                                         <img
                                             src={tuition.postedBy.avatar}
                                             alt={tuition.postedBy.name}
-                                            className="size-12 rounded-full"
+                                            className="size-12 rounded-full object-cover"
                                         />
                                         <div>
                                             <div className="text-gray-900 text-lg font-medium">{tuition.postedBy.name}</div>
