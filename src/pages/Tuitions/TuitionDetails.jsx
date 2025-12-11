@@ -1,11 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import useAxios from './../../hooks/useAxios';
 import { Link, useParams } from "react-router";
 import { useQuery } from '@tanstack/react-query';
 import Loading from './../../components/Loading';
-import { ArrowLeft, BookOpen, Calendar, Clock, DollarSign, MapPin, MessageCircle } from 'lucide-react';
+import { ArrowLeft, BookOpen, Calendar, CircleCheckBig, Clock, DollarSign, MapPin, MessageCircle } from 'lucide-react';
+import useRole from '../../hooks/useRole';
+import { useState } from 'react';
+import { Modal } from 'antd';
+import { useForm } from 'react-hook-form';
+import useAuth from '../../hooks/useAuth';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
+import Swal from 'sweetalert2';
 
 const TuitionDetails = () => {
+    const [alreadyApplied, setAlradyApplied] = useState(false)
+    const { register, handleSubmit, reset } = useForm()
+    const { user } = useAuth()
+    const instanceSecure = useAxiosSecure()
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const { role, isLoading: roleLoading } = useRole()
     const { id } = useParams()
     const instance = useAxios()
     const { data: tuition, isLoading } = useQuery({
@@ -16,9 +29,60 @@ const TuitionDetails = () => {
         }
     })
 
-    if (isLoading) return <Loading />
+    const handleApply = (data) => {
+        // console.log(data);
+        // console.log(tuition._id);
+        const tutor = {
+            name: user.displayName,
+            avatar: user.photoURL,
+            subjects: data.subjects.split(',').map(s => s.trim()).filter(s => s.length),
+            location: data.location,
+            experience: data.experience,
+            rate: data.rate,
+            email: user.email,
+            about: data.about,
+            education: data.education,
+            tuitionId: tuition._id,
+            appliedAt: new Date()
+        }
+        // console.log(tutor);
+
+        instanceSecure.post('/applied-tuition', tutor)
+            .then(res => {
+                if (res.data.insertedId) {
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Your application has been react to the tuition owner. Please wait.",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    setIsModalOpen(false)
+                    reset()
+                }
+            })
+            .catch(() => {
+                Swal.fire({
+                    position: "center",
+                    icon: "error",
+                    title: "Something went wrong !!",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            })
+    }
+
+    useEffect(() => {
+        instanceSecure.get(`applied-tuition/check?email=${user?.email}&tuitionId=${tuition?._id}`)
+            .then(res => {
+                setAlradyApplied(res.data.applied);
+            })
+    }, [user, tuition?._id, instanceSecure])
+
+    if (isLoading || roleLoading) return <Loading />
 
     // console.log(tuition);
+    // console.log(role);
 
     return (
         <div className='bg-gray-50'>
@@ -107,7 +171,7 @@ const TuitionDetails = () => {
                                     </div>
                                 </div>
 
-                                <button className="w-full primary-clr text-white rounded-lg hover:bg-blue-700 transition-colors on-hover btn">
+                                <button onClick={() => setIsModalOpen(true)} disabled={alreadyApplied || role !== 'Tutor'} className={`${alreadyApplied || role !== "Tutor" ? 'bg-gray-500 text-white btn w-full rounded-lg' : 'w-full primary-clr text-white rounded-lg hover:bg-blue-700 transition-colors on-hover btn'}`}>
                                     Apply for This Tuition
                                 </button>
                                 <button className="mt-4 hover:text-blue-700 w-full btn border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
@@ -118,6 +182,100 @@ const TuitionDetails = () => {
                     </div>
                 </div>
             </div>
+            <Modal
+                title="Apply for this tuition"
+                closable={{ 'aria-label': 'Custom Close Button' }}
+                open={isModalOpen}
+                onOk={() => setIsModalOpen(false)}
+                onCancel={() => setIsModalOpen(false)}
+            >
+                <form onSubmit={handleSubmit(handleApply)} className='space-y-6 p-2'>
+                    {/* Name */}
+                    <div>
+                        <label className="block text-gray-700 mb-2">Name</label>
+                        <input
+                            type="text"
+                            readOnly
+                            className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                            defaultValue={user?.displayName}
+                        />
+                    </div>
+                    {/* Email */}
+                    <div>
+                        <label className="block text-gray-700 mb-2">Email</label>
+                        <input
+                            type="text"
+                            readOnly
+                            className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                            defaultValue={user?.email}
+                        />
+                    </div>
+                    {/* Subject */}
+                    <div>
+                        <label className="block text-sm text-gray-700 mb-2">Subjects *</label>
+                        <input type='text' {...register('subjects', { required: true })} className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                            placeholder="e.g., Math, Physics, Chemistry" />
+                    </div>
+                    {/* Rate */}
+                    <div>
+                        <label className="block text-sm text-gray-700 mb-2">Fee(s) (per month) *</label>
+                        <input
+                            type="text"
+                            {...register('rate', { required: true })}
+                            className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                            placeholder="e.g., 2000-3000/month"
+                        />
+                    </div>
+                    {/* Experience */}
+                    <div>
+                        <label className="block text-sm text-gray-700 mb-2">Experience *</label>
+                        <input
+                            type="text"
+                            {...register('experience', { required: true })}
+                            className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                            placeholder="e.g., 3 years"
+                        />
+                    </div>
+                    {/* Location */}
+                    <div>
+                        <label className="block text-sm text-gray-700 mb-2">Location *</label>
+                        <input
+                            type="text"
+                            {...register('location', { required: true })}
+                            className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                            placeholder="e.g., Dhaka, Gulshan, Rajshahi"
+                        />
+                    </div>
+                    {/* About */}
+                    <div>
+                        <label className="block text-sm text-gray-700 mb-2">About you *</label>
+                        <textarea
+                            {...register('about', { required: true })}
+                            rows={5}
+                            className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none transition-all"
+                            placeholder="Describe yourself..."
+                        />
+                    </div>
+                    {/* Education */}
+                    <div>
+                        <label className="block text-sm text-gray-700 mb-2">Your education *</label>
+                        <textarea
+                            {...register('education', { required: true })}
+                            rows={5}
+                            className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none transition-all"
+                            placeholder="Describe your education (Bsc in Mathmatics)..."
+                        />
+                    </div>
+
+                    <button
+                        type="submit"
+                        className="w-full cursor-pointer py-3 primary-clr text-white rounded-xl hover:shadow-lg transition-all hover:scale-[1.02] flex items-center justify-center gap-2"
+                    >
+                        <CircleCheckBig className='size-4' />
+                        Apply Now
+                    </button>
+                </form>
+            </Modal>
         </div>
     );
 };

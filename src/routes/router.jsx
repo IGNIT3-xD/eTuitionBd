@@ -17,6 +17,9 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import MyTuitions from "../pages/Dashboard/MyTuitions";
 import Homepage from "../pages/Dashboard/Homepage";
 import PostTuitions from './../pages/Dashboard/PostTuitions';
+import StudentRoute from "./StudentRoute";
+import TutorRoute from "./TutorRoute";
+import MyApplication from "../pages/Dashboard/MyApplication";
 
 export const router = createBrowserRouter([
     {
@@ -81,12 +84,16 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/dashboard/my-tuitions',
-                element: <MyTuitions />
+                element: <StudentRoute><MyTuitions /></StudentRoute>
             },
             {
                 path: '/dashboard/post-tuitions',
-                element: <PostTuitions />
+                element: <StudentRoute><PostTuitions /></StudentRoute>
             },
+            {
+                path: '/dashboard/my-applications',
+                element: <TutorRoute><MyApplication /></TutorRoute>
+            }
         ]
     }
 ]);

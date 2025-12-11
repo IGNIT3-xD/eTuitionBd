@@ -11,7 +11,8 @@ const useRole = () => {
         queryFn: async () => {
             const res = await instanceSecure.get(`users/${user?.email}`)
             return res.data.role
-        }
+        },
+        enabled: !!user?.email
     })
 
     // console.log(role);
