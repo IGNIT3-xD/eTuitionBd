@@ -10,7 +10,7 @@ const Tuitions = () => {
     const { data, isLoading } = useQuery({
         queryKey: ['tuitions'],
         queryFn: async () => {
-            const res = await instance.get('/tuitions')
+            const res = await instance.get('/tuitions/approved')
             return res.data
         }
     })

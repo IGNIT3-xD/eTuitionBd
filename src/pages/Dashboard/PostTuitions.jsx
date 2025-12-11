@@ -30,8 +30,10 @@ const PostTuitions = () => {
             startDate: data.startDate,
             description: data.description,
             posted: new Date(),
+            status:'Pending',
             postedBy: {
                 name: user.displayName,
+                email:user.email,
                 avatar: user.photoURL,
                 memberSince: new Date(memberSince).toLocaleDateString("en-Us", {
                     day: "numeric",
@@ -52,7 +54,7 @@ const PostTuitions = () => {
                         showConfirmButton: false,
                         timer: 1500
                     });
-                    navigate('/tuitions')
+                    navigate('/dashboard/my-tuitions')
                 }
             })
             .catch(() => {
@@ -70,7 +72,7 @@ const PostTuitions = () => {
         <div className='bg-gray-50 min-h-[calc(100vh-64px)]'>
             <div className='layout py-5'>
                 <h1 className='text-2xl md:text-3xl my-3 font-medium'>Post a Tuition</h1>
-                <p className='text-xl leading-relaxed'>Post a tuition with details and find quality tutors.</p>
+                <p className='text-lg leading-relaxed'>Post a tuition with details and find quality tutors.</p>
 
                 <div className='bg-white rounded-2xl shadow-lg p-8 max-w-3xl mx-auto my-10'>
                     <div className="flex items-center gap-3 mb-6">
@@ -112,8 +114,9 @@ const PostTuitions = () => {
                                     <option value="English">English</option>
                                     <option value="Computer Science">ICT</option>
                                     <option value="History">History</option>
-                                    <option value="Spanish">Bangla</option>
-                                    <option value="French">Others</option>
+                                    <option value="Bangla">Bangla</option>
+                                    <option value="Arabic">Arabic</option>
+                                    <option value="Others">Others</option>
                                 </select>
                             </div>
                             {/* Level */}
@@ -195,7 +198,7 @@ const PostTuitions = () => {
 
                         <button
                             type="submit"
-                            className="w-full py-3 primary-clr text-white rounded-xl hover:shadow-lg transition-all hover:scale-[1.02] flex items-center justify-center gap-2"
+                            className="w-full cursor-pointer py-3 primary-clr text-white rounded-xl hover:shadow-lg transition-all hover:scale-[1.02] flex items-center justify-center gap-2"
                         >
                             <Plus className="size-5" />
                             Post Tuition

@@ -10,7 +10,7 @@ const Tuitions = () => {
     const { data, isLoading } = useQuery({
         queryKey: ['tuitinos'],
         queryFn: async () => {
-            const res = await instance.get('/tuitions')
+            const res = await instance.get('/tuitions/approved')
             return res.data
         }
     })
@@ -32,8 +32,7 @@ const Tuitions = () => {
                             <Link
                                 key={tuition._id}
                                 to={`/tuitions/${tuition._id}`}
-                                className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
-                            >
+                                className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                                 <div className="flex items-start justify-between mb-3">
                                     <span className="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-sm">
                                         {tuition.subject}
@@ -50,15 +49,15 @@ const Tuitions = () => {
 
                                 <div className="space-y-2 mb-4">
                                     <div className="flex items-center gap-2 text-sm text-gray-600">
-                                        <MapPin className="size-4 shrink-0" />
+                                        <MapPin className="size-4 shrink-0 text-green-500" />
                                         <span>{tuition.location}</span>
                                     </div>
                                     <div className="flex items-center gap-2 text-sm text-gray-600">
-                                        <DollarSign className="size-4 shrink-0" />
+                                        <DollarSign className="size-4 shrink-0 text-red-600" />
                                         <span>{tuition.budget}</span>
                                     </div>
                                     <div className="flex items-center gap-2 text-sm text-gray-600">
-                                        <Clock className="size-4 shrink-0" />
+                                        <Clock className="size-4 shrink-0 text-blue-500" />
                                         <span>{tuition.duration}</span>
                                     </div>
                                 </div>
