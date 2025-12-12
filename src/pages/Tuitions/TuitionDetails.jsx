@@ -43,6 +43,7 @@ const TuitionDetails = () => {
             about: data.about,
             education: data.education,
             tuitionId: tuition._id,
+            studentEmail: tuition.postedBy.email,
             appliedAt: new Date()
         }
         // console.log(tutor);
@@ -53,7 +54,7 @@ const TuitionDetails = () => {
                     Swal.fire({
                         position: "center",
                         icon: "success",
-                        title: "Your application has been react to the tuition owner. Please wait.",
+                        title: "Your application has been reached to the tuition owner. Please wait.",
                         showConfirmButton: false,
                         timer: 1500
                     });

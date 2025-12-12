@@ -3,7 +3,7 @@ import Logo from './../components/Logo';
 import useRole from '../hooks/useRole';
 import Loading from './../components/Loading';
 import { Outlet, Link, NavLink } from 'react-router';
-import { Book, BookOpenCheck, Plus } from 'lucide-react';
+import { Book, BookOpenCheck, ListCheck, Plus } from 'lucide-react';
 
 const DashboardLayout = () => {
     const { role, isLoading } = useRole()
@@ -62,6 +62,12 @@ const DashboardLayout = () => {
                                     <NavLink to={'/dashboard/post-tuitions'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Post A Tuition">
                                         <Plus className='size-4' />
                                         <span className="is-drawer-close:hidden">Post A Tuition</span>
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to={'/dashboard/applied-tutors'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Applied Tutors">
+                                        <ListCheck className='size-4'/>
+                                        <span className="is-drawer-close:hidden">Applied Tutors</span>
                                     </NavLink>
                                 </li>
                             </>

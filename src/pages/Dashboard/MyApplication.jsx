@@ -118,7 +118,7 @@ const MyApplication = () => {
                                         <td className='font-medium'>{tuition.rate}</td>
                                         <td className={`${tuition.status === 'Pending' ? 'text-red-600' : 'text-green-600'} font-medium`}>{tuition.status}</td>
                                         <td className='space-x-2'>
-                                            <button onClick={() => handleModal(tuition)} title='Edit' className='btn btn-sm btn-square'><Edit className='size-4 text-indigo-500' /></button>
+                                            <button disabled={tuition.status !== 'Pending'} onClick={() => handleModal(tuition)} title='Edit' className='btn btn-sm btn-square'><Edit className='size-4 text-indigo-500' /></button>
                                             <button onClick={() => handleDelete(tuition._id)} title='Delete' className='btn btn-sm btn-square'><Trash2 className='size-4 text-red-700' /></button>
                                         </td>
                                     </tr>

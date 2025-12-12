@@ -9,7 +9,6 @@ import { Link } from 'react-router';
 import { Modal } from 'antd';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import useRole from '../../hooks/useRole';
 
 const MyTuitions = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm()
@@ -17,8 +16,6 @@ const MyTuitions = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const instanceSecure = useAxiosSecure()
     const { user } = useAuth()
-    const { role } = useRole()
-    console.log(role);
 
     const showModal = () => {
         setIsModalOpen(true);

@@ -20,6 +20,7 @@ import PostTuitions from './../pages/Dashboard/PostTuitions';
 import StudentRoute from "./StudentRoute";
 import TutorRoute from "./TutorRoute";
 import MyApplication from "../pages/Dashboard/MyApplication";
+import AppliedTutors from "../pages/Dashboard/AppliedTutors";
 
 export const router = createBrowserRouter([
     {
@@ -89,6 +90,10 @@ export const router = createBrowserRouter([
             {
                 path: '/dashboard/post-tuitions',
                 element: <StudentRoute><PostTuitions /></StudentRoute>
+            },
+            {
+                path: '/dashboard/applied-tutors',
+                element: <StudentRoute><AppliedTutors /></StudentRoute>
             },
             {
                 path: '/dashboard/my-applications',
