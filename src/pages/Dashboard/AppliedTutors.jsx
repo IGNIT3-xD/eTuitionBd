@@ -62,6 +62,20 @@ const AppliedTutors = () => {
         })
     }
 
+    const handleAccept = async (tuition) => {
+        console.log(tuition);
+        const paymentInfo = {
+            id:tuition._id,
+            rate: tuition.rate,
+            studentEmail: tuition.studentEmail,
+            tuitionId: tuition.tuitionId,
+            name: tuition.name,
+            tutorEmail: tuition.email,
+        }
+        const res = await instanceSecure.post(`/create-checkout-session`, paymentInfo)
+        window.location.assign(res.data.url)
+    }
+
     if (isLoading) return <Loading />
     // console.log(tutor);
     // console.log(selectedTutor);
@@ -112,8 +126,8 @@ const AppliedTutors = () => {
                                         })}</td>
                                         <td className={`${tuition.status === 'Pending' ? 'text-red-600' : 'text-green-600'} font-medium`}>{tuition.status}</td>
                                         <td className='grid grid-cols-2 gap-5 lg:gap-2'>
-                                            <button title='Accept' className='btn btn-sm btn-square'><UserCheck className='size-4 text-indigo-500' /></button>
-                                            <button disabled={tuition.status === 'Rejected'} onClick={() => handleReject(tuition)} title='Reject' className='btn btn-sm btn-square'><X className='size-4 text-red-500' /></button>
+                                            <button disabled={tuition.status === 'Paid'} onClick={() => handleAccept(tuition)} title='Accept' className='btn btn-sm btn-square'><UserCheck className='size-4 text-indigo-500' /></button>
+                                            <button disabled={tuition.status !== 'Pending'} onClick={() => handleReject(tuition)} title='Reject' className='btn btn-sm btn-square'><X className='size-4 text-red-500' /></button>
                                             <button onClick={() => handleModal(tuition)} title='Tutor Profile' className='btn btn-sm btn-square'><ContactRound className='size-4 text-red-500' /></button>
                                             <Link to={`/tuitions/${tuition.tuitionId}`} title='View Tuition Post' className='btn btn-sm btn-square'><NotebookText className='size-4 text-green-500' /></Link>
                                         </td>

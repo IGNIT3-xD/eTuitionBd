@@ -21,6 +21,8 @@ import StudentRoute from "./StudentRoute";
 import TutorRoute from "./TutorRoute";
 import MyApplication from "../pages/Dashboard/MyApplication";
 import AppliedTutors from "../pages/Dashboard/AppliedTutors";
+import PaymentSuccess from './../components/PaymentSuccess';
+import PaymentCancel from './../components/PaymentCancel';
 
 export const router = createBrowserRouter([
     {
@@ -98,7 +100,15 @@ export const router = createBrowserRouter([
             {
                 path: '/dashboard/my-applications',
                 element: <TutorRoute><MyApplication /></TutorRoute>
-            }
+            },
+            {
+                path: '/dashboard/payment-success',
+                Component: PaymentSuccess
+            },
+            {
+                path: '/dashboard/payment-cancel',
+                Component: PaymentCancel
+            },
         ]
     }
 ]);
