@@ -81,7 +81,7 @@ const AppliedTutors = () => {
     // console.log(selectedTutor);
 
     return (
-        <div className='bg-gray-50'>
+        <div className='bg-gray-50 min-h-[calc(100vh-64px)]'>
             <div className='layout py-5'>
                 <h1 className='text-2xl md:text-3xl my-3 font-medium'>Applied Tutors <span className='text-indigo-500'>({tutor.length})</span></h1>
                 <p className='text-lg leading-relaxed'>Track the status of your tuitions.</p>

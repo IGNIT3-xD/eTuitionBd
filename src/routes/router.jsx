@@ -23,6 +23,14 @@ import MyApplication from "../pages/Dashboard/MyApplication";
 import AppliedTutors from "../pages/Dashboard/AppliedTutors";
 import PaymentSuccess from './../components/PaymentSuccess';
 import PaymentCancel from './../components/PaymentCancel';
+import PaymentHistory from './../pages/Dashboard/PaymentHistory';
+import OnGoingTuitions from "../pages/Dashboard/OnGoingTuitions";
+import TutorStats from './../pages/Dashboard/TutorStats';
+import AdminRoute from './AdminRoute';
+import AdminStats from "../pages/Dashboard/AdminStats";
+import DashboardHomepage from "../pages/Dashboard/DashboardHomepage";
+import UserManagment from './../pages/Dashboard/UserManagment';
+import TuitionManagment from './../pages/Dashboard/TuitionManagment';
 
 export const router = createBrowserRouter([
     {
@@ -83,7 +91,7 @@ export const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                element: <Homepage />
+                element: <DashboardHomepage />
             },
             {
                 path: '/dashboard/my-tuitions',
@@ -98,8 +106,16 @@ export const router = createBrowserRouter([
                 element: <StudentRoute><AppliedTutors /></StudentRoute>
             },
             {
+                path: '/dashboard/payment-history',
+                element: <StudentRoute><PaymentHistory /></StudentRoute>
+            },
+            {
                 path: '/dashboard/my-applications',
                 element: <TutorRoute><MyApplication /></TutorRoute>
+            },
+            {
+                path: '/dashboard/ongoing-tuitions',
+                element: <TutorRoute><OnGoingTuitions /></TutorRoute>
             },
             {
                 path: '/dashboard/payment-success',
@@ -108,6 +124,14 @@ export const router = createBrowserRouter([
             {
                 path: '/dashboard/payment-cancel',
                 Component: PaymentCancel
+            },
+            {
+                path: '/dashboard/user-managment',
+                element: <AdminRoute><UserManagment /></AdminRoute>
+            },
+            {
+                path: '/dashboard/tuition-management',
+                element: <AdminRoute><TuitionManagment /></AdminRoute>
             },
         ]
     }
