@@ -125,7 +125,7 @@ const AppliedTutors = () => {
                                             minute: '2-digit'
                                         })}</td>
                                         <td className={`${tuition.status === 'Pending' ? 'text-red-600' : 'text-green-600'} font-medium`}>{tuition.status}</td>
-                                        <td className='grid grid-cols-2 gap-5 lg:gap-2'>
+                                        <td className='grid grid-cols-2 gap-5 lg:gap-4'>
                                             <button disabled={tuition.status === 'Paid'} onClick={() => handleAccept(tuition)} title='Accept' className='btn btn-sm btn-square'><UserCheck className='size-4 text-indigo-500' /></button>
                                             <button disabled={tuition.status !== 'Pending'} onClick={() => handleReject(tuition)} title='Reject' className='btn btn-sm btn-square'><X className='size-4 text-red-500' /></button>
                                             <button onClick={() => handleModal(tuition)} title='Tutor Profile' className='btn btn-sm btn-square'><ContactRound className='size-4 text-red-500' /></button>

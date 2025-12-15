@@ -2,7 +2,6 @@ import React from 'react';
 import useRole from '../../hooks/useRole';
 import Loading from './../../components/Loading';
 import AdminStats from './AdminStats';
-import StudentStats from './StudentStats';
 import TutorStats from './TutorStats';
 
 const DashboardHomepage = () => {
@@ -10,7 +9,6 @@ const DashboardHomepage = () => {
     if (isLoading) return <Loading />;
 
     if (role === 'Admin') return <AdminStats />
-    if (role === 'Student') return <StudentStats />
     if (role === 'Tutor') return <TutorStats />
 
     return (
