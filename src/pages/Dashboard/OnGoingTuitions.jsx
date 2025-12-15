@@ -22,14 +22,14 @@ const OnGoingTuitions = () => {
     const { data: details, isLoading: detailsLoading } = useQuery({
         queryKey: ['tuitions-details', ongoingTuitions?.map(t => t.tuitionId)],
         queryFn: async () => {
-            const res = ongoingTuitions.map(item =>
+            const res = ongoingTuitions?.map(item =>
                 instanceSecure.get(`/tuitions/${item.tuitionId}`)
                     .then(res => res.data)
             )
             const results = await Promise.all(res)
             return results
         },
-        enabled: !!ongoingTuitions && ongoingTuitions.length > 0
+        enabled: !!ongoingTuitions && ongoingTuitions?.length > 0
     })
 
     if (isLoading || detailsLoading) return <Loading />
@@ -43,7 +43,7 @@ const OnGoingTuitions = () => {
                 <p className='text-lg leading-relaxed'>Track your on-going tuitions.</p>
                 <div className='grod md:grid-cols-2 lg:grid-cols-3 gap-6 my-10'>
                     {
-                        details.map(tuition =>
+                        details?.map(tuition =>
                             <div
                                 key={tuition._id}
                                 className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">

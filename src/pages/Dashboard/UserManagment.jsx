@@ -18,7 +18,7 @@ const UserManagment = () => {
     const { register, handleSubmit, formState: { errors } } = useForm()
 
     const instanceSecure = useAxiosSecure()
-    const { user, updateUser, deleteProfile } = useAuth()
+    const { user, updateUser } = useAuth()
     const { data, isLoading, refetch } = useQuery({
         queryKey: ['users', user?.email],
         queryFn: async () => {
@@ -100,45 +100,6 @@ const UserManagment = () => {
         }
     };
 
-    const handleDelete = (user) => {
-        // console.log(user);
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                const delProfile = {
-                    displayName: user.name,
-                    email: user.email,
-                    photoURL: user.image
-                }
-                deleteProfile(delProfile)
-                    .then(() => {
-                        instanceSecure.delete(`/users/${user._id}`)
-                            .then((res) => {
-                                if (res.data.deletedCount) {
-                                    Swal.fire({
-                                        title: "Deleted!",
-                                        text: "User has been deleted.",
-                                        icon: "success"
-                                    });
-                                    refetch()
-                                }
-                            })
-                    })
-                    .catch(() => {
-                        Swal.fire('Error', 'Something went wrong', 'error');
-                    })
-            }
-        });
-
-    }
-
     if (isLoading) return <Loading />
     // console.log(data);
     // console.log(newRole);
@@ -174,7 +135,6 @@ const UserManagment = () => {
                                             <button onClick={() => handleModal(user)} title='View profile' className='bg-gray-500'><Eye className='size-4' /></button>
                                             <button onClick={() => handleRoleModal(user)} title='Update role' className='bg-indigo-400'><ShieldUser className='size-4' /></button>
                                             <button onClick={() => handleUpdateProfileModal(user)} title='Update profile' className='bg-green-700'><SquareUserRound className='size-4' /></button>
-                                            <button onClick={() => handleDelete(user)} title='Delete user' className='bg-red-500'><Trash2 className='size-4' /></button>
                                         </td>
                                     </tr>
                                 )

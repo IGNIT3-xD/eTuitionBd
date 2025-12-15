@@ -11,11 +11,12 @@ const Navbar = () => {
     const { user, logout } = useAuth()
     const instanceSecure = useAxiosSecure()
     const { data } = useQuery({
-        queryKey: [user?.email],
+        queryKey: ["user", user?.email],
         queryFn: async () => {
             const res = await instanceSecure.get(`/users/${user?.email}`)
             return res.data
-        }
+        },
+        enabled: !!user?.email
     })
     // console.log(data);
 

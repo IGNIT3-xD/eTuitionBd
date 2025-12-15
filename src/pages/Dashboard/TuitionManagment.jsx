@@ -116,7 +116,7 @@ const TuitionManagment = () => {
                         </thead>
                         <tbody>
                             {
-                                data.map((user, i) =>
+                                data?.map((user, i) =>
                                     <tr key={user._id} className="bg-base-200">
                                         <th>{i + 1}</th>
                                         <td>{user.postedBy.name}</td>

@@ -42,7 +42,7 @@ const Tutors = () => {
                                     <h3 className="text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">{tutor.name}</h3>
                                     <div className="flex items-center justify-center gap-1 mb-3">
                                         <Star className="size-5 text-yellow-400 fill-current" />
-                                        <span className="text-gray-900">{tutor.rating}</span>
+                                        <span className="text-gray-900">{tutor.rating || 0}</span>
                                         <span className="text-sm text-gray-500">({tutor.reviews})</span>
                                     </div>
                                 </div>
@@ -69,7 +69,7 @@ const Tutors = () => {
                                     </div>
                                     <div className="text-right">
                                         <div className="text-xs text-gray-500">Students</div>
-                                        <div className="text-gray-900">{tutor.students}</div>
+                                        <div className="text-gray-900">{tutor.students || 0}</div>
                                     </div>
                                 </div>
                             </Link>

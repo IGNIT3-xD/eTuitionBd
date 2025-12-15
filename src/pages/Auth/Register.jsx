@@ -25,7 +25,7 @@ const Register = () => {
         // console.log(data.image.length);
 
         signup(data.email, data.pass)
-            .then((res) => {
+            .then((result) => {
                 if (data.image && data.image.length > 0) {
                     const formData = new FormData()
                     formData.append('image', data.image[0])
@@ -44,6 +44,7 @@ const Register = () => {
                                 role: data.role,
                                 image: res.data.data.url,
                                 createdAt: new Date(),
+                                uid: result.user.uid
                             }
 
                             instanceSecure.post('/users', user)
@@ -62,14 +63,15 @@ const Register = () => {
                         })
                 }
                 else {
-                    const profile = { displayName: data.name, photoURL: res.user.photoURL }
+                    const profile = { displayName: data.name, photoURL: result.user.photoURL }
 
                     const user = {
                         name: data.name,
                         email: data.email,
                         role: data.role,
-                        image: res.user.photoURL,
+                        image: result.user.photoURL,
                         createdAt: new Date(),
+                        uid: result.user.uid
                     }
 
                     instanceSecure.post('/users', user)
@@ -98,7 +100,8 @@ const Register = () => {
                     name: res.user.displayName,
                     email: res.user.email,
                     role: 'Student',
-                    createdAt: new Date()
+                    createdAt: new Date(),
+                    uid: res.user.uid
                 }
                 instanceSecure.post('/users', user)
                     .then(res => {

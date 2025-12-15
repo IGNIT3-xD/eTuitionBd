@@ -21,7 +21,7 @@ const TuitionDetails = () => {
     const { role, isLoading: roleLoading } = useRole()
     const { id } = useParams()
     const instance = useAxios()
-    const { data: tuition, isLoading } = useQuery({
+    const { data: tuition, isLoading, refetch } = useQuery({
         queryKey: [id],
         queryFn: async () => {
             const res = await instance.get(`/tuitions/${id}`)
@@ -60,6 +60,7 @@ const TuitionDetails = () => {
                     });
                     setIsModalOpen(false)
                     reset()
+                    refetch()
                 }
             })
             .catch(() => {

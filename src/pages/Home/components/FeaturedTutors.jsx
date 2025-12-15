@@ -10,7 +10,7 @@ const FeaturedTutors = () => {
     const { data, isLoading } = useQuery({
         queryKey: ['tutors'],
         queryFn: async () => {
-            const res = await instace.get('/tutors')
+            const res = await instace.get('/tutors?limit=4')
             return res.data
         }
     })

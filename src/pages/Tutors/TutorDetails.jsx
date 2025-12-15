@@ -42,7 +42,7 @@ const TutorDetails = () => {
                                 <div className="flex items-center justify-center gap-1 mb-3">
                                     <Star className="size-5 text-yellow-400 fill-current" />
                                     <span className="text-gray-900">{tutor.rating}</span>
-                                    <span className="text-gray-500">({tutor.reviews} reviews)</span>
+                                    <span className="text-gray-500">({tutor.reviews || 0} reviews)</span>
                                 </div>
                                 <div className="flex items-center justify-center gap-2 text-gray-600 mb-4">
                                     <MapPin className="size-4" />
@@ -63,7 +63,7 @@ const TutorDetails = () => {
                                         <Users className="size-4" />
                                         <span className="text-sm">Students</span>
                                     </div>
-                                    <span className="text-gray-900 font-medium">{tutor.students}</span>
+                                    <span className="text-gray-900 font-medium">{tutor.students || 0}</span>
                                 </div>
                             </div>
 
