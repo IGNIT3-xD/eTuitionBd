@@ -60,13 +60,19 @@ const Settings = () => {
                     const updatedUser = { displayName: data.name, photoURL: res.data.data.url }
                     updateUser(updatedUser)
                         .then(() => {
-                            queryClient.invalidateQueries({ queryKey: [user?.email] })
-                            toast.success("User info. updated successfully !!")
+                            const newInfo = { name: data.name, image: res.data?.data?.url }
+                            instanceSecure.patch(`/users/${userDetails?._id}`, newInfo)
+                                .then(res => {
+                                    if (res.data.modifiedCount) {
+                                        queryClient.invalidateQueries({ queryKey: [user?.email] })
+                                        toast.success("User info. updated successfully !!")
 
-                            // Update immedietly
-                            setUser(prev => ({
-                                ...prev, displayName: data.name, photoURL: res.data.data.url
-                            }))
+                                        // Update immedietly
+                                        setUser(prev => ({
+                                            ...prev, displayName: data.name, photoURL: res.data.data?.url
+                                        }))
+                                    }
+                                })
                         })
                         .catch(err => toast.error(err.code))
                 })
