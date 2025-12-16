@@ -6,6 +6,8 @@ import { Clock, DollarSign, MapPin, SlidersHorizontal, X } from 'lucide-react';
 import { Link } from 'react-router';
 
 const Tuitions = () => {
+    const [currentPage, setCurrentPage] = useState(0)
+    const limit = 8
     const [search, setSearch] = useState('');
     const [debouncedSearch, setDebouncedSearch] = useState('');
     const [subject, setSubject] = useState('');
@@ -24,23 +26,29 @@ const Tuitions = () => {
     }, [search]);
 
     const { data, isLoading, isFetching } = useQuery({
-        queryKey: ['tuitions', debouncedSearch, subject, region, sortBy],
+        queryKey: ['tuitions', debouncedSearch, subject, region, sortBy, currentPage],
         queryFn: async () => {
             const res = await instance.get('/tuitions/approved', {
                 params: {
                     search: debouncedSearch,
                     subject: subject || undefined,
                     region: region || undefined,
-                    sortBy: sortBy
+                    sortBy: sortBy,
+                    skip: currentPage * limit,
+                    limit: limit
                 }
             });
             return res.data;
         },
     });
 
+    const totalPages = data?.count ? Math.ceil(data.count / limit) : 0;
+
+    // console.log(data);
+
     // Get unique subjects and regions for filter options
-    const uniqueSubjects = data ? [...new Set(data.map(t => t.subject))].sort() : [];
-    const uniqueRegions = data ? [...new Set(data.map(t => t.location))].sort() : [];
+    const uniqueSubjects = data ? [...new Set(data.result.map(t => t.subject))].sort() : [];
+    const uniqueRegions = data ? [...new Set(data.result.map(t => t.location))].sort() : [];
 
     const handleSearch = (e) => {
         setSearch(e.target.value);
@@ -207,7 +215,7 @@ const Tuitions = () => {
                 </div>
 
                 {/* Empty State */}
-                {data?.length === 0 ? (
+                {data?.result?.length === 0 ? (
                     <div className="text-center py-16 bg-white rounded-xl border border-gray-200">
                         <svg
                             className="w-16 h-16 mx-auto mb-4 text-gray-300"
@@ -232,7 +240,7 @@ const Tuitions = () => {
                     </div>
                 ) : (
                     <div className='grid md:grid-cols-2 lg:grid-cols-4 gap-6'>
-                        {data?.map(tuition =>
+                        {data?.result.map(tuition =>
                             <Link
                                 key={tuition._id}
                                 to={`/tuitions/${tuition._id}`}
@@ -278,6 +286,19 @@ const Tuitions = () => {
                         )}
                     </div>
                 )}
+
+                {/* Pagination */}
+                <div className="flex flex-wrap items-center justify-center gap-2 p-6">
+                    {
+                        currentPage > 0 && <button className="btn" onClick={() => setCurrentPage(currentPage - 1)}>Prev</button>
+                    }
+                    {
+                        [...Array(totalPages).keys()].map((i) => <button key={i} className={`btn ${i === currentPage && 'btn-primary'}`} onClick={() => setCurrentPage(i)}>{i + 1}</button>)
+                    }
+                    {
+                        currentPage < totalPages - 1 && <button className="btn" onClick={() => setCurrentPage(currentPage + 1)}>Next</button>
+                    }
+                </div>
             </div>
         </div>
     );
