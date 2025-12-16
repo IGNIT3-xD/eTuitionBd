@@ -25,15 +25,17 @@ import PaymentSuccess from './../components/PaymentSuccess';
 import PaymentCancel from './../components/PaymentCancel';
 import PaymentHistory from './../pages/Dashboard/PaymentHistory';
 import OnGoingTuitions from "../pages/Dashboard/OnGoingTuitions";
-import TutorStats from './../pages/Dashboard/TutorStats';
 import AdminRoute from './AdminRoute';
-import AdminStats from "../pages/Dashboard/AdminStats";
 import DashboardHomepage from "../pages/Dashboard/DashboardHomepage";
 import UserManagment from './../pages/Dashboard/UserManagment';
 import TuitionManagment from './../pages/Dashboard/TuitionManagment';
+import Loading from './../components/Loading';
+import Error from "../components/Error";
 
 export const router = createBrowserRouter([
     {
+        errorElement: <Error />,
+        hydrateFallbackElement: <Loading />,
         path: "/",
         Component: Root,
         children: [

@@ -100,6 +100,35 @@ const UserManagment = () => {
         }
     };
 
+    const handleDelete = (user) => {
+        console.log(user);
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                instanceSecure.delete(`/users/${user._id}`)
+                    .then((res) => {
+                        if (res.data.deletedCount)
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "User has been deleted.",
+                                icon: "success"
+                            });
+                        refetch()
+                    })
+                    .catch(() => {
+                        Swal.fire('Error', 'Something went wrong', 'error');
+                    })
+            }
+        });
+    }
+
     if (isLoading) return <Loading />
     // console.log(data);
     // console.log(newRole);
@@ -132,9 +161,10 @@ const UserManagment = () => {
                                         <td className={`${user.role === 'Admin' && 'text-green-700'} ${user.role === 'Tutor' && 'text-indigo-500'} ${user.role === 'Student' && 'text-amber-500'}`}>{user.role}</td>
                                         <td>{new Date(user.createdAt).toLocaleString()}</td>
                                         <td className='space-x-3 *:btn *:btn-xs *:text-white'>
-                                            <button onClick={() => handleModal(user)} title='View profile' className='bg-gray-500'><Eye className='size-4' /></button>
+                                            <button onClick={() => handleModal(user)} title='View profile' className='bg-blue-400'><Eye className='size-4' /></button>
                                             <button onClick={() => handleRoleModal(user)} title='Update role' className='bg-indigo-400'><ShieldUser className='size-4' /></button>
-                                            <button onClick={() => handleUpdateProfileModal(user)} title='Update profile' className='bg-green-700'><SquareUserRound className='size-4' /></button>
+                                            <button onClick={() => handleUpdateProfileModal(user)} title='Update profile' className='bg-green-600'><SquareUserRound className='size-4' /></button>
+                                            <button onClick={() => handleDelete(user)} title='Update profile' className='bg-red-600'><Trash2 className='size-4' /></button>
                                         </td>
                                     </tr>
                                 )
